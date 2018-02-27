@@ -3,14 +3,18 @@ const requestFilter = {
 };
 const extraInfo = ["blocking", "requestHeaders"];
 
+// This expression identifies requests for preview data
+const previewDataIdExpr = h => h.name.toLowerCase() === "referer" 
+    && h.value.toLowerCase() === "https://www.netflix.com/browse";
+
+const beforeSendHeader = details => {
+    const isPreviewDataRequest = details
+        .requestHeaders
+        .some(previewDataIdExpr);
+    return {cancel: isPreviewDataRequest};
+};
+
 chrome
     .webRequest
     .onBeforeSendHeaders
-    .addListener(function (details) {
-        for (var i = 0; i < details.requestHeaders.length; ++i) {
-            if (details.requestHeaders[i].name === "Referer" && details.requestHeaders[i].value === "https://www.netflix.com/browse") {
-                return {cancel: true};
-            }
-        }
-        return {cancel: false};
-    }, requestFilter, extraInfo);
+    .addListener(beforeSendHeader, requestFilter, extraInfo);
