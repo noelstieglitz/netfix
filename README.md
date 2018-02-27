@@ -1,0 +1,1 @@
+This is a completely fragile chrome extension to prevent netflix from autoplaying previews (because it's not 1997 anymore).  It would be better to implement this logic in a firewall rule at the router/gateway.
