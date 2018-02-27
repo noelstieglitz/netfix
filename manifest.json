@@ -1,0 +1,21 @@
+{
+    "name": "NetFix",
+    "description": "Prevent Netflix Autoplaying previews.",
+    "version": "0.0.0.1",
+    "manifest_version": 2,
+    "permissions": [
+        "activeTab",
+        "storage",
+        "webRequestBlocking",
+        "tabs",
+        "webRequest",
+        "*://*.netflix.com/*",
+        "*://*.nflxvideo.net/*"
+    ],
+    "background": {
+        "persistent": true,
+        "scripts": [
+            "background.js"
+        ]
+    }
+}
