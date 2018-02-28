@@ -11,7 +11,12 @@ const beforeSendHeader = details => {
     const isPreviewDataRequest = details
         .requestHeaders
         .some(previewDataIdExpr);
-    return {cancel: isPreviewDataRequest};
+
+        if(isPreviewDataRequest){
+            return {redirectUrl:"javascript:"};
+        }
+
+        return {cancel: false};
 };
 
 chrome
